@@ -4,13 +4,15 @@ import "./App.css";
 import DashboardPage from "./components/dashboard/DashboardPage";
 import LoginPage from "./components/login/LoginPage";
 import ProfilePage from "./components/profile/ProfilePage";
+import RegisterPage from "./components/register/RegisterPage";
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<DashboardPage />} />
-      <Route path="login" element={<LoginPage />} />
-      <Route path="profile" element={<ProfilePage />} />
+      <Route path="/" element={<LoginPage />} />
+      <Route path="/dashboard" element={<DashboardPage />} />
+      <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/register" element={<RegisterPage />} />
     </Routes>
   );
 }
