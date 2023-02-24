@@ -1,21 +1,60 @@
 import React from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import { useState } from "react";
+import { BASE_URL, LOGIN_TOKEN } from "../../constants/api";
 
 function LoginForm() {
-  return (
-    <Form>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Control type="email" placeholder="Email" />
-      </Form.Group>
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Control type="password" placeholder="Password" />
-      </Form.Group>
-      <Button variant="primary" type="submit">
-        Submit
-      </Button>
-    </Form>
+  const handleSubmit = function (event) {
+    event.preventDefault();
+    console.log({ email, password });
+
+    SubmitLogin(email, password);
+  };
+
+  async function SubmitLogin(email, password) {
+    const URL = BASE_URL + LOGIN_TOKEN;
+
+    const data = JSON.stringify({ email: email, password: password });
+    const options = {
+      method: "POST",
+      body: data,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const response = await fetch(URL, options);
+      const json = await response.json();
+
+      console.log(json);
+    } catch (error) {}
+  }
+
+  return (
+    <form className="form-contaier" onSubmit={handleSubmit}>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        value={email}
+        required
+        onChange={(event) => setEmail(event.target.value)}
+      />
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Password"
+        minLength={8}
+        required
+        value={password}
+        onChange={(event) => setPassword(event.target.value)}
+      />
+      <button className="login-btn">Login</button>
+    </form>
   );
 }
 
