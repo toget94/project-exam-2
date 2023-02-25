@@ -1,6 +1,7 @@
 import { BASE_URL, LOGIN_TOKEN } from "./api";
+import { saveToken } from "../utils/LocalStorage";
 
-export async function SubmitLogin(email, password) {
+export async function GetToken(email, password) {
   const URL = BASE_URL + LOGIN_TOKEN;
 
   const data = JSON.stringify({ email: email, password: password });
@@ -17,5 +18,11 @@ export async function SubmitLogin(email, password) {
     const json = await response.json();
 
     console.log(json);
-  } catch (error) {}
+
+    if (json.accessToken) {
+      saveToken(json.accessToken);
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }
