@@ -1,1 +1,2 @@
-# project-exam-2
+"email": "username@stud.noroff.no",
+"password": "Password123"
